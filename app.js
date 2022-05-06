@@ -1,6 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
+var cors = require('cors')
 
 
 
@@ -41,6 +42,7 @@ const User = model("User", userSchema);
 
 
 const app = express();
+app.use(cors())
 const PORT = 3001
 
 //Middleware
@@ -133,8 +135,8 @@ app.post('/sneakers', async (req, res) => {
     const sneaker = await Sneaker.create({userId,name,image})
     res.send(sneaker)
 })
-///// READ / GET by user id  
-app.get('/user/:userId', async (req, res) => {
+///// READ / GET sneaker list for a user id  
+app.get('/sneakers/user/:userId', async (req, res) => {
     const userId = req.params.userId 
     if( ! mongoose.isValidObjectId(userId)) {  // checks if Id is valid
         res.status(400).send('Invalid User ID')
