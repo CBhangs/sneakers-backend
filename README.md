@@ -11,15 +11,11 @@
 
 1. Javascript
 
-2. Css
+2. Express
 
-3. HTML
+3. Mongoose 
 
-4. Express
-
-5. Mongoose 
-
-6. CORS
+4. CORS
 
 
 
