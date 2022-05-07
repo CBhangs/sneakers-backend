@@ -71,6 +71,8 @@ app.put('/user/:id', (req, res) => {
         })
 })
 
+// TODO: add check if user exist before creating new user 
+
 //////////////////// CREATE USER ////////////////////
 app.post('/user', async (req, res) => {
     const name = req.body.name
