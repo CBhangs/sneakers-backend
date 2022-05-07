@@ -57,12 +57,12 @@ app.put('/user/:id', (req, res) => {
         return
     }
     const name = req.body.name
-    const email = req.body.email
-    if (! name || ! email) {
-        res.status(400).send('missing name or email'); // if missing name or email respond with error message <--
+    // const email = req.body.email
+    if (! name ) {
+        res.status(400).send('missing name '); // if missing name respond with error message <--
         return
     }
-     User.findByIdAndUpdate(id, {name,email}, {returnDocument:'after'})
+     User.findByIdAndUpdate(id, {name}, {returnDocument:'after'})
         .then((user) => {
             res.status(200).send(user)
         })
@@ -82,9 +82,15 @@ app.post('/user', async (req, res) => {
         res.status(400).send('missing name,email, or password');
         return
     }
+    const userCheck = await User.findOne({email}).exec()
+    if( userCheck ){
+        res.status(400).send('User Email already exist') // return error if user id isnt found
+        return
+    }
     const user = await User.create({name,email,password})
     res.send(user)
 })
+
 
 //////// USER LOGIN PAGE
 app.post('/user/login', async (req, res) => {
